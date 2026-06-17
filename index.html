@@ -1,0 +1,183 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- Packages for Styling and Layout ---
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref} % For clickable links
+\usepackage{listings} % For formatting and displaying code
+\usepackage{xcolor}   % For code syntax highlighting
+\usepackage{graphicx} % For adding images later if needed
+\usepackage{amsmath}  % For mathematical formulas
+
+% --- Code Highlighting Setup ---
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+% --- Document Information ---
+\title{Project Blueprint: AI Math Solver Web Application}
+\author{Web Development & Mathematics Project}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Project Overview}
+This document outlines the architecture and source code for a web application designed to help users solve mathematics problems. The application features:
+\begin{itemize}
+    \item A user interface to type math problems.
+    \item An image upload feature allowing users to import photos of handwritten equations.
+    \item A step-by-step breakdown of the math solutions.
+\end{itemize}
+
+\section{Web Application Source Code}
+Below is the complete, self-contained frontend code (\texttt{index.html}). It includes the structure, styling, and basic JavaScript logic to handle photo uploads and mock step-by-step math processing.
+
+\begin{lstlisting}[language=HTML, caption=Frontend Web Code for Math Solver Application]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step-by-Step Math Solver</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 { color: #2c3e50; text-align: center; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #34495e; }
+        input[type="text"], input[type="file"] {
+            width: 100%; padding: 10px; box-sizing: border-box;
+            border: 2px solid #bdc3c7; border-radius: 6px;
+        }
+        button {
+            width: 100%; background-color: #3498db; color: white;
+            border: none; padding: 12px; font-size: 16px;
+            border-radius: 6px; cursor: pointer; transition: 0.3s;
+        }
+        button:hover { background-color: #2980b9; }
+        .result-box {
+            margin-top: 25px; padding: 15px; background: #eef2f3;
+            border-left: 5px solid #2ecc71; border-radius: 4px; display: none;
+        }
+        .step { margin-bottom: 10px; padding-left: 10px; border-left: 2px solid #bdc3c7; }
+        #preview { max-width: 100%; max-height: 200px; margin-top: 10px; display: none; border-radius: 6px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Math Solver with Steps</h1>
+    
+    <div class="input-group">
+        <label for="math-text">Type your math problem:</label>
+        <input type="text" id="math-text" placeholder="e.g., 2x + 5 = 15">
+    </div>
+
+    <div class="input-group">
+        <label for="math-image">Or, import / upload a photo:</label>
+        <input type="file" id="math-image" accept="image/*">
+        <img id="preview" alt="Image preview">
+    </div>
+
+    <button onclick="solveProblem()">Solve Problem</button>
+
+    <div id="result" class="result-box">
+        <h3>Solution & Steps:</h3>
+        <div id="steps-container"></div>
+    </div>
+</div>
+
+<script>
+    // Preview the uploaded image
+    document.getElementById('math-image').addEventListener('change', function(e) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const preview = document.getElementById('preview');
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    });
+
+    // Simulate solving the math problem
+    function solveProblem() {
+        const textInput = document.getElementById('math-text').value;
+        const imageInput = document.getElementById('math-image').files[0];
+        const resultBox = document.getElementById('result');
+        const stepsContainer = document.getElementById('steps-container');
+        
+        if (!textInput && !imageInput) {
+            alert("Please enter a problem or upload an image first!");
+            return;
+        }
+
+        // Display results
+        resultBox.style.display = 'block';
+        stepsContainer.innerHTML = ''; // Clear previous steps
+
+        // Simulated processing response (In production, connect this to an AI/Math API)
+        const mockSteps = [
+            "Step 1: Identify the equation from input.",
+            "Step 2: Isolate the variable terms on one side.",
+            "Step 3: Simplify the constants.",
+            "Final Answer: x = 5"
+        ];
+
+        mockSteps.forEach(step => {
+            const div = document.createElement('div');
+            div.className = 'step';
+            div.innerText = step;
+            stepsContainer.appendChild(div);
+        });
+    }
+</script>
+</body>
+</html>
+\end{lstlisting}
+
+\section{How to Deploy This Code}
+To make this code an active website, follow these steps:
+\begin{enumerate}
+    \item Copy the code inside the \texttt{lstlisting} block (lines 46 to 140).
+    \item Paste it into a plain text file and save it as \texttt{index.html}.
+    \item Open that file in any web browser to interact with the solver locally, or upload it to a free web host (like GitHub Pages or Netlify).
+\end{enumerate}
+
+\end{document}
