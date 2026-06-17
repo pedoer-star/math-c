@@ -1,61 +1,3 @@
-\documentclass[12pt, a4paper]{article}
-
-% --- Packages for Styling and Layout ---
-\usepackage[utf8]{inputenc}
-\usepackage{geometry}
-\geometry{margin=1in}
-\usepackage{hyperref} % For clickable links
-\usepackage{listings} % For formatting and displaying code
-\usepackage{xcolor}   % For code syntax highlighting
-\usepackage{graphicx} % For adding images later if needed
-\usepackage{amsmath}  % For mathematical formulas
-
-% --- Code Highlighting Setup ---
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-\lstset{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\small,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
-}
-
-% --- Document Information ---
-\title{Project Blueprint: AI Math Solver Web Application}
-\author{Web Development & Mathematics Project}
-\date{\today}
-
-\begin{document}
-
-\maketitle
-
-\section{Project Overview}
-This document outlines the architecture and source code for a web application designed to help users solve mathematics problems. The application features:
-\begin{itemize}
-    \item A user interface to type math problems.
-    \item An image upload feature allowing users to import photos of handwritten equations.
-    \item A step-by-step breakdown of the math solutions.
-\end{itemize}
-
-\section{Web Application Source Code}
-Below is the complete, self-contained frontend code (\texttt{index.html}). It includes the structure, styling, and basic JavaScript logic to handle photo uploads and mock step-by-step math processing.
-
-\begin{lstlisting}[language=HTML, caption=Frontend Web Code for Math Solver Application]
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -152,7 +94,7 @@ Below is the complete, self-contained frontend code (\texttt{index.html}). It in
         resultBox.style.display = 'block';
         stepsContainer.innerHTML = ''; // Clear previous steps
 
-        // Simulated processing response (In production, connect this to an AI/Math API)
+        // Simulated processing response
         const mockSteps = [
             "Step 1: Identify the equation from input.",
             "Step 2: Isolate the variable terms on one side.",
@@ -170,14 +112,3 @@ Below is the complete, self-contained frontend code (\texttt{index.html}). It in
 </script>
 </body>
 </html>
-\end{lstlisting}
-
-\section{How to Deploy This Code}
-To make this code an active website, follow these steps:
-\begin{enumerate}
-    \item Copy the code inside the \texttt{lstlisting} block (lines 46 to 140).
-    \item Paste it into a plain text file and save it as \texttt{index.html}.
-    \item Open that file in any web browser to interact with the solver locally, or upload it to a free web host (like GitHub Pages or Netlify).
-\end{enumerate}
-
-\end{document}
